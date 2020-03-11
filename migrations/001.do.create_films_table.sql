@@ -1,0 +1,21 @@
+CREATE TABLE films (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  director TEXT,
+  writers TEXT,
+  stars TEXT,
+  year_released TEXT,
+  genre TEXT,
+  film_format TEXT,
+  film_version TEXT,
+  film_condition TEXT,
+  film_value TEXT,
+  film_rating TEXT,
+  selling BOOLEAN DEFAULT FALSE,
+  last_watched DATE,
+  trailer TEXT,
+  tags TEXT,
+  notes TEXT,
+  memorable_scenes TEXT,
+  date_added TIMESTAMP DEFAULT now() NOT NULL
+);
