@@ -23,13 +23,13 @@ const FilmsService = {
       .first();
   },
   // * DELETE
-  deleteBookmark(knex, id) {
+  deleteFilm(knex, id) {
     return knex('films')
       .where({ id })
       .delete();
   },
   // * PATCH
-  updateBookmark(knex, id, newFilmFields) {
+  updateFilm(knex, id, newFilmFields) {
     return knex('films')
       .where({ id })
       .update(newFilmFields);

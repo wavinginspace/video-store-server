@@ -1,2 +1,7 @@
 {"message":"Film with id of 6 was created","level":"info"}
 {"message":"Film with id of 7 was created","level":"info"}
+{"message":"Film with id of 8 was created","level":"info"}
+{"message":"Bookmark with id 6 deleted.","level":"info"}
+{"message":"Collection with id of 1 was created","level":"info"}
+{"message":"Collection with id 1 deleted.","level":"info"}
+{"message":"Collection with id of 2 was created","level":"info"}

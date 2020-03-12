@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const filmsRouter = require('./films/films-router');
+const collectionsRouter = require('./collections/collections-router');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use('/api/films/', filmsRouter);
+app.use('/api/collections/', collectionsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;

@@ -19,12 +19,13 @@ filmsRouter
   .post(jsonParser, (req, res, next) => {
     const { title } = req.body;
     const newFilm = { title };
+
 console.log(newFilm)
-    // for (const [key, value] of Object.entries(newFilm))
-    //   if (value == null)
-    //     return res.status(400).json({
-    //       error: { message: `Missing '${key}' in request body` }
-    //     });
+    for (const [key, value] of Object.entries(newFilm))
+      if (value == null)
+        return res.status(400).json({
+          error: { message: `Missing '${key}' in request body` }
+        });
 
     FilmsService.insertFilm(req.app.get('db'), newFilm)
       .then(film => {
@@ -42,7 +43,48 @@ filmsRouter
   .all(checkFilmExists)
   .get((req, res) => {
     res.json(FilmsService.serializeFilm(res.film));
-  });
+  })
+  .get((req, res) => {
+    res.json(FilmsService.serializeFilm(res.film));
+  })
+  .delete((req, res, next) => {
+    const { film_id } = req.params;
+    FilmsService.deleteFilm(req.app.get('db'), film_id)
+      .then(numRowsAffected => {
+        logger.info(`Film with id ${film_id} deleted.`);
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { title } = req.body;
+    const filmToUpdate = { title };
+
+    const numberOfValues = Object.values(filmToUpdate).filter(Boolean)
+      .length;
+    if (numberOfValues === 0) {
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain either 'title', 'url', 'description', or 'rating'`
+        }
+      });
+    }
+
+    res.status(204).end();
+    FilmsService.updateFilm(
+      req.app.get('db'),
+      req.params.film_id,
+      filmToUpdate
+    )
+      .then((numRowsAffected) => {
+        logger.info(`Film with id ${film_id} updated.`)
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+
+  
+  
 
 async function checkFilmExists(req, res, next) {
   try {
