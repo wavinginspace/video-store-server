@@ -21,11 +21,11 @@ filmsRouter
     const newFilm = { title };
 
 console.log(newFilm)
-    for (const [key, value] of Object.entries(newFilm))
-      if (value == null)
-        return res.status(400).json({
-          error: { message: `Missing '${key}' in request body` }
-        });
+    // for (const [key, value] of Object.entries(newFilm))
+    //   if (value == null)
+    //     return res.status(400).json({
+    //       error: { message: `Missing '${key}' in request body` }
+    //     });
 
     FilmsService.insertFilm(req.app.get('db'), newFilm)
       .then(film => {
