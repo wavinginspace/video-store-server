@@ -38,7 +38,10 @@ const FilmsService = {
   serializeFilm(film) {
     return {
     id: film.id,
-    title: xss(film.title)
+    title: xss(film.title),
+    director: xss(film.director),
+    writers: xss(film.writers),
+    stars: xss(film.stars)
     }
   }
 };
