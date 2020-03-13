@@ -94,3 +94,5 @@
 {"message":"Film with id of 17 was created","level":"info"}
 {"message":"Film with id of 18 was created","level":"info"}
 {"message":"Film with id of 19 was created","level":"info"}
+{"message":"Collection with id of 3 was created","level":"info"}
+{"message":"Collection with id of 4 was created","level":"info"}

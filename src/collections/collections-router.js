@@ -17,8 +17,8 @@ collectionsRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { title } = req.body;
-    const newCollection = { title };
+    const { title, notes } = req.body;
+    const newCollection = { title, notes };
 
 console.log(newCollection)
     for (const [key, value] of Object.entries(newCollection))
@@ -57,8 +57,8 @@ collectionsRouter
       .catch(next);
   })
   .patch(jsonParser, (req, res, next) => {
-    const { title } = req.body;
-    const collectionToUpdate = { title };
+    const { title, notes } = req.body;
+    const collectionToUpdate = { title, notes };
 
     const numberOfValues = Object.values(collectionToUpdate).filter(Boolean)
       .length;

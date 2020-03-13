@@ -37,9 +37,10 @@ const CollectionsService = {
 
   serializeCollection(collection) {
     return {
-    id: collection.id,
-    title: xss(collection.title)
-    }
+      id: collection.id,
+      title: xss(collection.title),
+      notes: xss(collection.notes)
+    };
   }
 };
 
