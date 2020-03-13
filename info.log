@@ -96,3 +96,17 @@
 {"message":"Film with id of 19 was created","level":"info"}
 {"message":"Collection with id of 3 was created","level":"info"}
 {"message":"Collection with id of 4 was created","level":"info"}
+{"message":"Film with id of 20 was created","level":"info"}
+{"message":"Film with id 20 deleted.","level":"info"}
+{"message":"Film with id 19 deleted.","level":"info"}
+{"message":"Film with id 17 deleted.","level":"info"}
+{"message":"Film with id 16 deleted.","level":"info"}
+{"message":"Film with id 12 deleted.","level":"info"}
+{"message":"Film with id 18 deleted.","level":"info"}
+{"message":"Film with id 2 deleted.","level":"info"}
+{"message":"Film with id 1 deleted.","level":"info"}
+{"message":"Film with id of 21 was created","level":"info"}
+{"message":"Film with id 21 deleted.","level":"info"}
+{"message":"Film with id of 22 was created","level":"info"}
+{"message":"Collection with id 4 deleted.","level":"info"}
+{"message":"Film with id of 23 was created","level":"info"}

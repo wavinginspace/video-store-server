@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const { CLIENT_ORIGIN } = require('./config');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');

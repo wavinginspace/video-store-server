@@ -17,10 +17,52 @@ filmsRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, selected_collection, director, writers, stars } = req.body;
-    const newFilm = { title, selected_collection, director, writers, stars };
-    console.log(req.body)
-console.log(newFilm)
+    const {
+      title,
+      selected_collection,
+      director,
+      writers,
+      stars,
+      year_released,
+      genre,
+      film_format,
+      film_version,
+      film_condition,
+      film_value,
+      film_rating,
+      selling,
+      last_watched,
+      trailer,
+      tags,
+      notes,
+      memorable_scenes,
+      date_added
+    } = req.body;
+
+    const newFilm = {
+      title,
+      selected_collection,
+      director,
+      writers,
+      stars,
+      year_released,
+      genre,
+      film_format,
+      film_version,
+      film_condition,
+      film_value,
+      film_rating,
+      selling,
+      last_watched,
+      trailer,
+      tags,
+      notes,
+      memorable_scenes,
+      date_added
+    };
+
+    console.log(req.body);
+    console.log(newFilm);
     // for (const [key, value] of Object.entries(newFilm))
     //   if (value == null)
     //     return res.status(400).json({
@@ -60,8 +102,7 @@ filmsRouter
     const { title } = req.body;
     const filmToUpdate = { title };
 
-    const numberOfValues = Object.values(filmToUpdate).filter(Boolean)
-      .length;
+    const numberOfValues = Object.values(filmToUpdate).filter(Boolean).length;
     if (numberOfValues === 0) {
       return res.status(400).json({
         error: {
@@ -71,20 +112,13 @@ filmsRouter
     }
 
     res.status(204).end();
-    FilmsService.updateFilm(
-      req.app.get('db'),
-      req.params.film_id,
-      filmToUpdate
-    )
-      .then((numRowsAffected) => {
-        logger.info(`Film with id ${film_id} updated.`)
+    FilmsService.updateFilm(req.app.get('db'), req.params.film_id, filmToUpdate)
+      .then(numRowsAffected => {
+        logger.info(`Film with id ${film_id} updated.`);
         res.status(204).end();
       })
       .catch(next);
-  })
-
-  
-  
+  });
 
 async function checkFilmExists(req, res, next) {
   try {
