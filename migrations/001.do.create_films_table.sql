@@ -1,6 +1,7 @@
 CREATE TABLE films (
   id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
+  title TEXT NOT NULL, 
+  selected_collection TEXT,
   director TEXT,
   writers TEXT,
   stars TEXT,

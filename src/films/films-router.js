@@ -17,9 +17,9 @@ filmsRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, director, writers, stars } = req.body;
-    const newFilm = { title, director, writers, stars };
-
+    const { title, selected_collection, director, writers, stars } = req.body;
+    const newFilm = { title, selected_collection, director, writers, stars };
+    console.log(req.body)
 console.log(newFilm)
     // for (const [key, value] of Object.entries(newFilm))
     //   if (value == null)

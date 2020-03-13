@@ -39,6 +39,7 @@ const FilmsService = {
     return {
     id: film.id,
     title: xss(film.title),
+    selected_collection: xss(film.selected_collection),
     director: xss(film.director),
     writers: xss(film.writers),
     stars: xss(film.stars)
