@@ -86,9 +86,6 @@ filmsRouter
   .get((req, res) => {
     res.json(FilmsService.serializeFilm(res.film));
   })
-  .get((req, res) => {
-    res.json(FilmsService.serializeFilm(res.film));
-  })
   .delete((req, res, next) => {
     const { film_id } = req.params;
     FilmsService.deleteFilm(req.app.get('db'), film_id)

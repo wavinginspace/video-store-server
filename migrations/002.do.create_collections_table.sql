@@ -4,9 +4,4 @@ CREATE TABLE collections (
   notes TEXT
 );
 
--- ALTER TABLE films 
---   ADD COLUMN
---   film_collections INTEGER REFERENCES collections(id)
---   ON DELETE SET NULL;
-
 

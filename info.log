@@ -110,3 +110,6 @@
 {"message":"Film with id of 22 was created","level":"info"}
 {"message":"Collection with id 4 deleted.","level":"info"}
 {"message":"Film with id of 23 was created","level":"info"}
+{"message":"Film with id 23 deleted.","level":"info"}
+{"message":"Film with id of 24 was created","level":"info"}
+{"message":"Film with id 22 deleted.","level":"info"}

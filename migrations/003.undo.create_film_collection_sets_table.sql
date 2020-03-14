@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS film_collection_sets;

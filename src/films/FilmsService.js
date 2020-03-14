@@ -14,7 +14,7 @@ const FilmsService = {
         return rows[0];
       });
   },
-  // * GET bookmarks/:id
+  // * GET films/:id
   getById(knex, id) {
     return knex
       .from('films')
@@ -37,27 +37,26 @@ const FilmsService = {
 
   serializeFilm(film) {
     return {
-    id: film.id,
-    title: xss(film.title),
-    selected_collection: xss(film.selected_collection),
-    director: xss(film.director),
-    writers: xss(film.writers),
-    stars: xss(film.stars),
-    year_released: film.year_released,
-    genre: xss(film.genre),
-    film_format: xss(film.film_format),
-    film_version: xss(film.film_version),
-    film_condition: xss(film.film_condition),
-    film_value: xss(film.film_value),
-    film_rating: xss(film.film_rating),
-    selling: xss(film.selling),
-    last_watched: film.last_watched,
-    trailer: xss(film.trailer),
-    tags: xss(film.tags),
-    notes: xss(film.notes),
-    memorable_scenes: xss(film.memorable_scenes),
-    date_added: film.date_added
-    }
+      id: film.id,
+      title: xss(film.title),
+      director: xss(film.director),
+      writers: xss(film.writers),
+      stars: xss(film.stars),
+      year_released: xss(film.year_released),
+      genre: xss(film.genre),
+      film_format: xss(film.film_format),
+      film_version: xss(film.film_version),
+      film_condition: xss(film.film_condition),
+      film_value: xss(film.film_value),
+      film_rating: xss(film.film_rating),
+      selling: xss(film.selling),
+      last_watched: xss(film.last_watched),
+      trailer: xss(film.trailer),
+      tags: xss(film.tags),
+      notes: xss(film.notes),
+      memorable_scenes: xss(film.memorable_scenes),
+      date_added: film.date_added
+    };
   }
 };
 

@@ -42,10 +42,8 @@ collectionsRouter
   .route('/:collection_id')
   .all(checkCollectionExists)
   .get((req, res) => {
-    res.json(CollectionsService.serializeCollection(res.collection));
-  })
-  .get((req, res) => {
-    res.json(CollectionsService.serializeCollection(res.collection));
+    res.json(CollectionsService.serializeCollection(res.collection))
+    .then(console.log(res.collection));
   })
   .delete((req, res, next) => {
     const { collection_id } = req.params;
