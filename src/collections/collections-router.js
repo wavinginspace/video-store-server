@@ -11,7 +11,7 @@ collectionsRouter
   .get((req, res, next) => {
     CollectionsService.getAllCollections(req.app.get('db'))
       .then(collections => {
-        console.log(collections);
+        console.log(collections)
         res.json(collections.map(CollectionsService.serializeCollection));
       })
       .catch(next);
@@ -42,8 +42,7 @@ collectionsRouter
   .route('/:collection_id')
   .all(checkCollectionExists)
   .get((req, res) => {
-    res.json(CollectionsService.serializeCollection(res.collection))
-    .then(console.log(res.collection));
+    res.json(CollectionsService.serializeCollection(res.collection));
   })
   .delete((req, res, next) => {
     const { collection_id } = req.params;

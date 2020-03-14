@@ -27,7 +27,7 @@ const CollectionsService = {
       .raw(`SELECT
       films.title AS film_title,
       collections.title AS collection_title,
-      collections.notes
+      collections.notes AS collection_notes
     FROM
       films
       JOIN
@@ -37,9 +37,7 @@ const CollectionsService = {
       collections
       ON film_collections.collection_id = collections.id
       WHERE collections.id = ${id}`)
-      // .then(collection => {
-      //   return collection.rows[0];
-      // });
+      // .then (rows => rows)
   },
   // * DELETE
   deleteCollection(knex, id) {
@@ -53,16 +51,25 @@ const CollectionsService = {
       .where({ id })
       .update(newCollectionFields);
   },
-  serializeCollection(collection) {
-    const collectionTitle = collection.rows[0].collection_title;
-    const collectionNotes = collection.rows[0].notes || '';
-    const collectionFilms = collection.rows.map(film => film.film_title)
 
+  // TODO FIX THiS --> /collections endpoint not working
+
+  serializeCollection(collection) {
+
+    let collectionFilms;
+
+    if (collection.rows) {
+    const collectionTitle = collection.rows[0].collection_title
+    const collectionNotes =  collection.rows[0].collection_notes;
+    collectionFilms = collection.rows.map(film => film.film_title)
+    }
+
+    console.log(collection)
     return {
       id: collection.id,
-      title: xss(collectionTitle),
-      notes: xss(collectionNotes),
-      collection: collectionFilms
+      title: collection.rows ? xss(collectionTitle) : collection.title,
+      notes: collection.rows ? xss(collectionNotes) : collection.notes,
+      collection_films: collectionFilms ? collectionFilms : ''
     };
   }
 };
