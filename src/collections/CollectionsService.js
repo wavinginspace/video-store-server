@@ -15,13 +15,6 @@ const CollectionsService = {
       });
   },
   // * GET collections/:collection_id
-  // getById(knex, id) {
-  //   return knex
-  //     .from('collections')
-  //     .select('*')
-  //     .where({ id })
-  //     .first();
-  // },
   getById(knex, id) {
     return knex.raw(`SELECT
       films.id AS film_id,

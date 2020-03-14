@@ -19,7 +19,6 @@ filmsRouter
   .post(jsonParser, (req, res, next) => {
     const {
       title,
-      selected_collection,
       director,
       writers,
       stars,
@@ -41,7 +40,6 @@ filmsRouter
 
     const newFilm = {
       title,
-      selected_collection,
       director,
       writers,
       stars,
