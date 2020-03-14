@@ -26,7 +26,8 @@ const CollectionsService = {
     return knex
       .raw(`SELECT
       films.title AS film_title,
-      collections.title AS collection_title
+      collections.title AS collection_title,
+      collections.notes
     FROM
       films
       JOIN
@@ -53,15 +54,14 @@ const CollectionsService = {
       .update(newCollectionFields);
   },
   serializeCollection(collection) {
-    // const collectionFilms = collection.map(collection => collection.title)
-
+    const collectionTitle = collection.rows[0].collection_title;
+    const collectionNotes = collection.rows[0].notes || '';
     const collectionFilms = collection.rows.map(film => film.film_title)
-
 
     return {
       id: collection.id,
-      title: xss(collection.title),
-      notes: xss(collection.notes),
+      title: xss(collectionTitle),
+      notes: xss(collectionNotes),
       collection: collectionFilms
     };
   }
