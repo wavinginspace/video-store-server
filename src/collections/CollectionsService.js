@@ -23,8 +23,8 @@ const CollectionsService = {
   //     .first();
   // },
   getById(knex, id) {
-    return knex
-      .raw(`SELECT
+    return knex.raw(`SELECT
+      films.id AS film_id,
       films.title AS film_title,
       collections.title AS collection_title,
       collections.notes AS collection_notes
@@ -36,8 +36,8 @@ const CollectionsService = {
       JOIN
       collections
       ON film_collections.collection_id = collections.id
-      WHERE collections.id = ${id}`)
-      // .then (rows => rows)
+      WHERE collections.id = ${id}`);
+    // .then (rows => rows)
   },
   // * DELETE
   deleteCollection(knex, id) {
@@ -55,18 +55,19 @@ const CollectionsService = {
   // TODO FIX THiS --> /collections endpoint not working
 
   serializeCollection(collection) {
-
     let collectionFilms;
     let collectionTitle;
     let collectionNotes;
 
     if (collection.rows) {
-    collectionTitle = collection.rows[0].collection_title
-    collectionNotes =  collection.rows[0].collection_notes;
-    collectionFilms = collection.rows.map(film => film.film_title)
+      collectionTitle = collection.rows[0].collection_title;
+      collectionNotes = collection.rows[0].collection_notes;
+      collectionFilms = collection.rows.map(film => {
+        return { id: film.film_id, film: film.film_title };
+      });
     }
 
-    console.log(collection)
+    console.log(collection);
     return {
       id: collection.id,
       title: collection.rows ? xss(collectionTitle) : collection.title,
