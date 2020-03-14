@@ -57,10 +57,12 @@ const CollectionsService = {
   serializeCollection(collection) {
 
     let collectionFilms;
+    let collectionTitle;
+    let collectionNotes;
 
     if (collection.rows) {
-    const collectionTitle = collection.rows[0].collection_title
-    const collectionNotes =  collection.rows[0].collection_notes;
+    collectionTitle = collection.rows[0].collection_title
+    collectionNotes =  collection.rows[0].collection_notes;
     collectionFilms = collection.rows.map(film => film.film_title)
     }
 
