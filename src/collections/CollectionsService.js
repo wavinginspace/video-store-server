@@ -45,8 +45,6 @@ const CollectionsService = {
       .update(newCollectionFields);
   },
 
-  // TODO FIX THiS --> /collections endpoint not working
-
   serializeCollection(collection) {
     let collectionFilms;
     let collectionTitle;
