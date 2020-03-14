@@ -63,7 +63,7 @@ const CollectionsService = {
       collectionTitle = collection.rows[0].collection_title;
       collectionNotes = collection.rows[0].collection_notes;
       collectionFilms = collection.rows.map(film => {
-        return { id: film.film_id, film: film.film_title };
+        return { id: film.film_id, title: film.film_title };
       });
     }
 
