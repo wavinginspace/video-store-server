@@ -12,7 +12,7 @@ const FilmsService = {
       .returning('*')
       .then(rows => {
         return rows[0];
-      })
+      });
   },
   // * GET films/:id
   getById(knex, id) {
