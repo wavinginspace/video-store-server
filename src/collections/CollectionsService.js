@@ -11,6 +11,7 @@ const CollectionsService = {
       .into('collections')
       .returning('*')
       .then(rows => {
+        
         return rows[0];
       });
   },
@@ -51,14 +52,13 @@ const CollectionsService = {
     let collectionNotes;
 
     if (collection.rows) {
-      collectionTitle = collection.rows[0].collection_title;
-      collectionNotes = collection.rows[0].collection_notes;
+      collectionTitle = collection.rows.length ? collection.rows[0].collection_title : collection.title;
+      collectionNotes = collection.rows.length ? collection.rows[0].collection_notes : collection.notes;
       collectionFilms = collection.rows.map(film => {
         return { id: film.film_id, title: film.film_title };
-      });
+      })
     }
 
-    console.log(collection);
     return {
       id: collection.id,
       title: collection.rows ? xss(collectionTitle) : collection.title,

@@ -11,7 +11,6 @@ collectionsRouter
   .get((req, res, next) => {
     CollectionsService.getAllCollections(req.app.get('db'))
       .then(collections => {
-        console.log(collections)
         res.json(collections.map(CollectionsService.serializeCollection));
       })
       .catch(next);
@@ -20,7 +19,7 @@ collectionsRouter
     const { title, notes } = req.body;
     const newCollection = { title, notes };
 
-console.log(newCollection)
+
     for (const [key, value] of Object.entries(newCollection))
       if (value == null)
         return res.status(400).json({
@@ -42,6 +41,7 @@ collectionsRouter
   .route('/:collection_id')
   .all(checkCollectionExists)
   .get((req, res) => {
+    
     res.json(CollectionsService.serializeCollection(res.collection));
   })
   .delete((req, res, next) => {
