@@ -19,6 +19,7 @@ filmsRouter
   .post(jsonParser, (req, res, next) => {
     const {
       title,
+      collections,
       director,
       writers,
       stars,
@@ -40,6 +41,7 @@ filmsRouter
 
     const newFilm = {
       title,
+      collections,
       director,
       writers,
       stars,

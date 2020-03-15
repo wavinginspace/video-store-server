@@ -7,7 +7,8 @@ TRUNCATE
   RESTART IDENTITY CASCADE;
 
 INSERT INTO films (
-  title, 
+  title,
+  collections,
   director,
   writers,
   stars,
@@ -26,12 +27,13 @@ INSERT INTO films (
   memorable_scenes
       ) 
 VALUES
-('Last House On The Left', 
+('Last House On The Left',
+'Horror',
 'Wes Craven', 
 'Wes Craven', 
 'Sandra Peabody, Lucy Grantham', 
 '1972', 
-'Horror', 
+'80s Horror', 
 'VHS', 
 'Original', 
 'Decent', 
@@ -44,8 +46,8 @@ VALUES
 'Classic Wes Craven horror', 
 'can''t remember any'
 ),
-('Halloween', 'John Carpenter', 'John Carpenter, Debra Hill', 'Jamie Lee Curtis, Donald Pleasance', '1981', 'Horror', 'Blu-ray', 'Director''s Cut', 'Excellent', '$10', '10/10', 'false', '2020-03-01', 'https://www.youtube.com/watch?v=T5ke9IPTIJQ&t=33s', 'Classic, Teen Horror', 'One of the best horror films ever made.', 'When Jamie Lee Curtis turns around and Michael Myers side steps into the bushes.'),
-('Forrest Gump', 'Robert Zemeckis', 'Winston Groom, Eric Roth', 'Tom Hanks, Robin Wright, Gary Sinise', '1994', 'Drama, Comedy, Romance', 'DVD', 'Original', 'Good', '$1', '7/10', 'true', '2020-01-01', 'https://www.youtube.com/watch?v=bLvqoHBptjg', 'American Classic, Feel-good', 'Classic American cinema', 'Ping pong championship.');
+('Halloween', '80s Horror', 'John Carpenter', 'John Carpenter, Debra Hill', 'Jamie Lee Curtis, Donald Pleasance', '1981', 'Horror', 'Blu-ray', 'Director''s Cut', 'Excellent', '$10', '10/10', 'false', '2020-03-01', 'https://www.youtube.com/watch?v=T5ke9IPTIJQ&t=33s', 'Classic, Teen Horror', 'One of the best horror films ever made.', 'When Jamie Lee Curtis turns around and Michael Myers side steps into the bushes.'),
+('Forrest Gump', 'Comedy', 'Robert Zemeckis', 'Winston Groom, Eric Roth', 'Tom Hanks, Robin Wright, Gary Sinise', '1994', 'Drama, Comedy, Romance', 'DVD', 'Original', 'Good', '$1', '7/10', 'true', '2020-01-01', 'https://www.youtube.com/watch?v=bLvqoHBptjg', 'American Classic, Feel-good', 'Classic American cinema', 'Ping pong championship.');
 
 
 INSERT INTO collections (title, notes) 

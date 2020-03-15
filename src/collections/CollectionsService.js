@@ -47,6 +47,7 @@ const CollectionsService = {
   },
 
   serializeCollection(collection) {
+    
     let collectionFilms;
     let collectionTitle;
     let collectionNotes;
