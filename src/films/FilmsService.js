@@ -12,7 +12,7 @@ const FilmsService = {
       .returning('*')
       .then(rows => {
         return rows[0];
-      });
+      })
   },
   // * GET films/:id
   getById(knex, id) {
@@ -39,7 +39,7 @@ const FilmsService = {
     return {
       id: film.id,
       title: xss(film.title),
-      collections: xss(film.collections),
+      selected_collections: xss(film.selected_collections),
       director: xss(film.director),
       writers: xss(film.writers),
       stars: xss(film.stars),

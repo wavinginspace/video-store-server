@@ -11,7 +11,6 @@ const CollectionsService = {
       .into('collections')
       .returning('*')
       .then(rows => {
-        
         return rows[0];
       });
   },
@@ -47,17 +46,20 @@ const CollectionsService = {
   },
 
   serializeCollection(collection) {
-    
     let collectionFilms;
     let collectionTitle;
     let collectionNotes;
 
     if (collection.rows) {
-      collectionTitle = collection.rows.length ? collection.rows[0].collection_title : collection.title;
-      collectionNotes = collection.rows.length ? collection.rows[0].collection_notes : collection.notes;
+      collectionTitle = collection.rows.length
+        ? collection.rows[0].collection_title
+        : collection.title;
+      collectionNotes = collection.rows.length
+        ? collection.rows[0].collection_notes
+        : collection.notes;
       collectionFilms = collection.rows.map(film => {
         return { id: film.film_id, title: film.film_title };
-      })
+      });
     }
 
     return {
