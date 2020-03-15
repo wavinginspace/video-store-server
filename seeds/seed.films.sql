@@ -28,7 +28,7 @@ INSERT INTO films (
       ) 
 VALUES
 ('Last House On The Left',
-'Horror',
+'80s Horror',
 'Wes Craven', 
 'Wes Craven', 
 'Sandra Peabody, Lucy Grantham', 

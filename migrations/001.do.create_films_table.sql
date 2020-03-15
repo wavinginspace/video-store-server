@@ -13,10 +13,9 @@ CREATE TABLE films (
   film_value TEXT,
   film_rating TEXT,
   selling BOOLEAN DEFAULT FALSE,
-  last_watched DATE,
   trailer TEXT,
   tags TEXT,
   notes TEXT,
   memorable_scenes TEXT,
-  date_added DATE DEFAULT now() NOT NULL
+  date_added DATE DEFAULT CURRENT_DATE NOT NULL
 );

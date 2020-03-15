@@ -51,7 +51,6 @@ const FilmsService = {
       film_value: xss(film.film_value),
       film_rating: xss(film.film_rating),
       selling: xss(film.selling),
-      last_watched: xss(film.last_watched),
       trailer: xss(film.trailer),
       tags: xss(film.tags),
       notes: xss(film.notes),
