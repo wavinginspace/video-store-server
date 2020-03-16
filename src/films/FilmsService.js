@@ -41,9 +41,20 @@ const FilmsService = {
   getById(knex, id) {
     return knex
       .from('films')
-      .select('*')
-      .where({ id })
-      .first();
+      .select('films.*', 'collections.title AS collection_title')
+      .where({ 'films.id': id })
+      .rightOuterJoin(
+        'film_collections',
+        'films.id',
+        '=',
+        'film_collections.film_id'
+      )
+      .rightOuterJoin(
+        'collections',
+        'film_collections.collection_id',
+        '=',
+        'collections.id'
+      );
   },
   // * DELETE
   deleteFilm(knex, id) {
@@ -59,6 +70,13 @@ const FilmsService = {
   },
 
   serializeFilm(film) {
+    let collections;
+
+    if (Array.isArray(film)) {
+      collections = film.map(film => film.collection_title);
+      film = film[0];
+    }
+
     return {
       id: film.id,
       title: xss(film.title),
@@ -78,7 +96,8 @@ const FilmsService = {
       tags: xss(film.tags),
       notes: xss(film.notes),
       memorable_scenes: xss(film.memorable_scenes),
-      date_added: xss(film.date_added)
+      date_added: xss(film.date_added),
+      collections: xss(collections)
     };
   }
 };
