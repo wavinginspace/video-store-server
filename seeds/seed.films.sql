@@ -27,7 +27,7 @@ INSERT INTO films (
       ) 
 VALUES
 ('Last House On The Left',
-'80s Horror',
+'',
 'Wes Craven', 
 'Wes Craven', 
 'Sandra Peabody, Lucy Grantham', 
@@ -44,7 +44,7 @@ VALUES
 'Classic Wes Craven horror', 
 'can''t remember any'
 ),
-('Halloween', '80s Horror', 'John Carpenter', 'John Carpenter, Debra Hill', 'Jamie Lee Curtis, Donald Pleasance', '1981', 'Horror', 'Blu-ray', 'Director''s Cut', 'Excellent', '$10', '10/10', 'false', 'https://www.youtube.com/watch?v=T5ke9IPTIJQ&t=33s', 'Classic, Teen Horror', 'One of the best horror films ever made.', 'When Jamie Lee Curtis turns around and Michael Myers side steps into the bushes.'),
+('Halloween', '', 'John Carpenter', 'John Carpenter, Debra Hill', 'Jamie Lee Curtis, Donald Pleasance', '1981', 'Horror', 'Blu-ray', 'Director''s Cut', 'Excellent', '$10', '10/10', 'false', 'https://www.youtube.com/watch?v=T5ke9IPTIJQ&t=33s', 'Classic, Teen Horror', 'One of the best horror films ever made.', 'When Jamie Lee Curtis turns around and Michael Myers side steps into the bushes.'),
 ('Forrest Gump', 'Comedy', 'Robert Zemeckis', 'Winston Groom, Eric Roth', 'Tom Hanks, Robin Wright, Gary Sinise', '1994', 'Drama, Comedy, Romance', 'DVD', 'Original', 'Good', '$1', '7/10', 'true', 'https://www.youtube.com/watch?v=bLvqoHBptjg', 'American Classic, Feel-good', 'Classic American cinema', 'Ping pong championship.');
 
 

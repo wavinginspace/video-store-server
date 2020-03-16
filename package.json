@@ -1,7 +1,7 @@
 {
   "name": "video-store-server",
   "version": "1.0.0",
-  "description": "This is a boilerplate project used for starting new projects!",
+  "description": "An app for keeping your film collection organized.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require test/setup.js",

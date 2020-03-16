@@ -3,26 +3,28 @@ const app = require('../src/app');
 const { makeNotesArray, makeMaliciousNote } = require('./films.fixtures');
 const { makeFoldersArray } = require('./folders.fixtures');
 
-// describe('Notes Endpoints', function() {
-//   let db;
+describe('Films Endpoints', function() {
+  let db;
 
-//   before('make knex instance', () => {
-//     db = knex({
-//       client: 'pg',
-//       connection: process.env.TEST_DATABASE_URL
-//     });
-//     app.set('db', db);
-//   });
+  before('make knex instance', () => {
+    db = knex({
+      client: 'pg',
+      connection: process.env.TEST_DATABASE_URL
+    });
+    app.set('db', db);
+  });
 
-//   after('disconnect from db', () => db.destroy());
+  after('disconnect from db', () => db.destroy());
 
-//   before('clean the table', () =>
-//     db.raw('TRUNCATE folders, notes RESTART IDENTITY CASCADE')
-//   );
+  before('clean the table', () =>
+    db.raw('TRUNCATE films, collections, film_collections RESTART IDENTITY CASCADE')
+  );
 
-//   this.afterEach('cleanup', () =>
-//     db.raw('TRUNCATE folders, notes RESTART IDENTITY CASCADE')
-//   );
+  this.afterEach('cleanup', () =>
+    db.raw('TRUNCATE films, collections, film_collections RESTART IDENTITY CASCADE')
+  );
+})
+
 
 //   describe('GET /api/notes', () => {
 //     context('Given no notes', () => {

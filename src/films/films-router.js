@@ -11,7 +11,6 @@ filmsRouter
   .get((req, res, next) => {
     FilmsService.getAllFilms(req.app.get('db'))
       .then(films => {
-        console.log(films);
         res.json(films.map(FilmsService.serializeFilm));
       })
       .catch(next);
@@ -59,17 +58,15 @@ filmsRouter
       date_added
     };
 
-    console.log(req.body);
-    console.log(newFilm);
-    // for (const [key, value] of Object.entries(newFilm))
-    //   if (value == null)
-    //     return res.status(400).json({
-    //       error: { message: `Missing '${key}' in request body` }
-    //     });
+    for (const [key, value] of Object.entries(newFilm))
+      if (value == null)
+        return res.status(400).json({
+          error: { message: `Missing '${key}' in request body` }
+        });
 
     FilmsService.insertFilm(req.app.get('db'), newFilm)
       .then(film => {
-        // logger.info(`Film with id of ${film.id} was created`);
+        logger.info(`Film with id of ${film.id} was created`);
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${film.id}`))
