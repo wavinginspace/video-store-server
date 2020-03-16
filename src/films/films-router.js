@@ -69,7 +69,7 @@ filmsRouter
 
     FilmsService.insertFilm(req.app.get('db'), newFilm)
       .then(film => {
-        logger.info(`Film with id of ${film.id} was created`);
+        // logger.info(`Film with id of ${film.id} was created`);
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${film.id}`))
@@ -101,7 +101,7 @@ filmsRouter
     if (numberOfValues === 0) {
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'title', 'url', 'description', or 'rating'`
+          message: `Request body must contain 'title'`
         }
       });
     }

@@ -5,13 +5,46 @@ const FilmsService = {
     let films = knex.select('*').from('films');
     return films;
   },
+  // insertFilm(knex, newFilm) {
+  //   return knex
+  //     .insert(newFilm)
+  //     .into('films')
+  //     .returning('*')
+  //     .then(rows => {
+  //       return rows[0];
+  //     });
+  // },
   insertFilm(knex, newFilm) {
+    const selected_collections = newFilm.selected_collections;
+    newFilm.selected_collections = '';
+    let film;
+
     return knex
-      .insert(newFilm)
-      .into('films')
-      .returning('*')
-      .then(rows => {
-        return rows[0];
+      .transaction(function(t) {
+        return knex('films')
+          .transacting(t)
+          .insert(newFilm)
+          .returning('*')
+          .then(function(response) {
+            film = response[0];
+            let collections = selected_collections.map(collection => {
+              return { film_id: film.id, collection_id: collection };
+            });
+
+            return knex('film_collections')
+              .transacting(t)
+              .insert(collections);
+          })
+          .then(t.commit)
+          .catch(t.rollback);
+      })
+      .then(function() {
+        console.log(film);
+        // transaction suceeded, data written
+        return film;
+      })
+      .catch(function() {
+        // transaction failed, data rolled back
       });
   },
   // * GET films/:id
