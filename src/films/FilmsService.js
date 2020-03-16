@@ -5,15 +5,6 @@ const FilmsService = {
     let films = knex.select('*').from('films');
     return films;
   },
-  // insertFilm(knex, newFilm) {
-  //   return knex
-  //     .insert(newFilm)
-  //     .into('films')
-  //     .returning('*')
-  //     .then(rows => {
-  //       return rows[0];
-  //     });
-  // },
   insertFilm(knex, newFilm) {
     const selected_collections = newFilm.selected_collections;
     newFilm.selected_collections = '';
@@ -39,7 +30,6 @@ const FilmsService = {
           .catch(t.rollback);
       })
       .then(function() {
-        console.log(film);
         // transaction suceeded, data written
         return film;
       })
@@ -88,7 +78,7 @@ const FilmsService = {
       tags: xss(film.tags),
       notes: xss(film.notes),
       memorable_scenes: xss(film.memorable_scenes),
-      date_added: film.date_added
+      date_added: xss(film.date_added)
     };
   }
 };

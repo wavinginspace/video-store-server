@@ -211,3 +211,11 @@
 {"message":"Film with id 46 deleted.","level":"info"}
 {"message":"Film with id 45 deleted.","level":"info"}
 {"message":"Film with id 34 deleted.","level":"info"}
+{"message":"Collection with id of 3 was created","level":"info"}
+{"message":"Film with id 50 deleted.","level":"info"}
+{"message":"Collection with id 3 deleted.","level":"info"}
+{"message":"Collection with id 1 deleted.","level":"info"}
+{"message":"Collection with id of 4 was created","level":"info"}
+{"message":"Collection with id 4 deleted.","level":"info"}
+{"message":"Film with id 52 deleted.","level":"info"}
+{"message":"Film with id 53 deleted.","level":"info"}
