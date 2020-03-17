@@ -15,9 +15,9 @@ const FilmsService = {
         return knex('films')
           .transacting(t)
           .insert(newFilm)
-          .returning('*')
+          .returning('*') 
           .then(function(response) {
-            film = response[0];
+            film = response[0]; // response = data from database
             let collections = selected_collections.map(collection => {
               return { film_id: film.id, collection_id: collection };
             });
@@ -26,8 +26,8 @@ const FilmsService = {
               .transacting(t)
               .insert(collections);
           })
-          .then(t.commit)
-          .catch(t.rollback);
+        .then(t.commit)
+        .catch(t.rollback);
       })
       .then(function() {
         // transaction suceeded, data written
