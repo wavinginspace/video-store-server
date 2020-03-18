@@ -257,3 +257,11 @@
 {"message":"Collection with id 3 deleted.","level":"info"}
 {"message":"Film with id 1 deleted.","level":"info"}
 {"message":"Film with id of 4 was created","level":"info"}
+{"message":"Film with id of 8 was created","level":"info"}
+{"message":"Film with id of 11 was created","level":"info"}
+{"message":"Film with id 11 deleted.","level":"info"}
+{"message":"Film with id of 12 was created","level":"info"}
+{"message":"Film with id 12 deleted.","level":"info"}
+{"message":"Film with id of 13 was created","level":"info"}
+{"message":"Film with id of 14 was created","level":"info"}
+{"message":"Film with id 8 deleted.","level":"info"}
