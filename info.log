@@ -248,3 +248,12 @@
 {"message":"Collection with id 7 deleted.","level":"info"}
 {"message":"Film with id of 11 was created","level":"info"}
 {"message":"Film with id of 12 was created","level":"info"}
+{"message":"Collection with id 6 deleted.","level":"info"}
+{"message":"Collection with id 8 deleted.","level":"info"}
+{"message":"Film with id 12 deleted.","level":"info"}
+{"message":"Collection with id 1 deleted.","level":"info"}
+{"message":"Collection with id 2 deleted.","level":"info"}
+{"message":"Collection with id of 3 was created","level":"info"}
+{"message":"Collection with id 3 deleted.","level":"info"}
+{"message":"Film with id 1 deleted.","level":"info"}
+{"message":"Film with id of 4 was created","level":"info"}
