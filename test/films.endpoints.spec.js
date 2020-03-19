@@ -144,8 +144,32 @@ describe('Films Endpoints', function() {
         .post('/api/films')
         .send(newFilm)
         .expect(201)
+        .expect(res => {
+          expect(res.body).to.have.property('id');
+          expect(res.body).to.have.property('selected_collections');
+          expect(res.body.director).to.eql(newFilm.director);
+          expect(res.body.writers).to.eql(newFilm.writers);
+          expect(res.body.stars).to.eql(newFilm.stars);
+          expect(res.body.year_released).to.eql(newFilm.year_released);
+          expect(res.body.genre).to.eql(newFilm.genre);
+          expect(res.body.film_format).to.eql(newFilm.film_format);
+          expect(res.body.film_version).to.eql(newFilm.film_version);
+          expect(res.body.film_condition).to.eql(newFilm.film_condition);
+          expect(res.body.film_value).to.eql(newFilm.film_value);
+          expect(res.body.film_rating).to.eql(newFilm.film_rating);
+          expect(res.body.selling).to.eql(newFilm.selling);
+          expect(res.body.trailer).to.eql(newFilm.trailer);
+          expect(res.body.tags).to.eql(newFilm.tags);
+          expect(res.body.notes).to.eql(newFilm.notes);
+          expect(res.body.memorable_scenes).to.eql(newFilm.memorable_scenes);
+          const expected = new Intl.DateTimeFormat('en-US').format(new Date("03-18-2020"));
+          const actual = new Intl.DateTimeFormat('en-US').format(
+            new Date(res.body.date_added)
+          );
+          expect(actual).to.eql(expected);
+        })
         .then(res => {
-          // console.log(res.body);
+          
           return supertest(app)
             .get(`/api/films/${res.body.id}`)
             .expect(res.body);

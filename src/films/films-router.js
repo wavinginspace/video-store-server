@@ -121,7 +121,6 @@ async function checkFilmExists(req, res, next) {
       req.params.film_id
     );
 
-
     if (!film)
       return res.status(404).json({
         error: `Film doesn't exist`

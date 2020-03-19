@@ -45,13 +45,13 @@ const FilmsService = {
       .from('films')
       .select('films.*', 'collections.title AS collection_title')
       .where({ 'films.id': id })
-      .rightOuterJoin(
+      .leftOuterJoin(
         'film_collections',
         'films.id',
         '=',
         'film_collections.film_id'
       )
-      .rightOuterJoin(
+      .leftOuterJoin(
         'collections',
         'film_collections.collection_id',
         '=',
@@ -74,7 +74,7 @@ const FilmsService = {
   serializeFilm(film) {
     let collections;
     
-
+    
     if (Array.isArray(film)) {
       collections = film.map(film => film.collection_title);
       film = film[0];
