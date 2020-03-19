@@ -30,7 +30,6 @@ const CollectionsService = {
       collections
       ON film_collections.collection_id = collections.id
       WHERE collections.id = ${id}`);
-    // .then (rows => rows)
   },
   // * DELETE
   deleteCollection(knex, id) {
@@ -46,22 +45,13 @@ const CollectionsService = {
   },
 
   serializeCollection(collection) {
-    let collectionFilms;
-    let collectionTitle;
-    let collectionNotes;
+    let collectionFilms, collectionTitle, collectionNotes;
 
     if (collection.rows) {
-      collectionTitle = collection.rows.length
-        ? collection.rows[0].collection_title
-        : collection.title;
-      collectionNotes = collection.rows.length
-        ? collection.rows[0].collection_notes
-        : collection.notes;
       collectionFilms = collection.rows.map(film => {
         return { id: film.film_id, title: film.film_title };
       });
     }
-
     return {
       id: collection.id,
       title: collection.rows ? xss(collectionTitle) : xss(collection.title),

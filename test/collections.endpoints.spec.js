@@ -5,7 +5,7 @@ const {
   makeMaliciousCollection
 } = require('./collections.fixtures');
 
-describe.only('Collections Endpoints', function() {
+describe('Collections Endpoints', function() {
   let db;
 
   before('make knex instance', () => {
@@ -46,7 +46,7 @@ describe.only('Collections Endpoints', function() {
         return db.into('collections').insert(testCollections);
       });
 
-      it('responds with 200 and all notes', () => {
+      it('responds with 200 and all collections', () => {
         let databaseCollections = testCollections.map(collection => {
           return {
             ...collection,
@@ -67,7 +67,7 @@ describe.only('Collections Endpoints', function() {
         expectedCollection
       } = makeMaliciousCollection();
 
-      beforeEach('insert malicious note', () => {
+      beforeEach('insert malicious collection', () => {
         return db.into('collections').insert([maliciousCollection]);
       });
 
@@ -108,6 +108,40 @@ describe.only('Collections Endpoints', function() {
               .get('/api/collections')
               .expect(expectedCollections);
           });
+      });
+    });
+
+    describe('POST /api/collections', () => {
+      it('creates a collection, responding with 201 and the new collection', () => {
+        const newCollection = {
+          title: 'test title',
+          notes: 'test notes'
+        };
+        return supertest(app)
+          .post('/api/collections')
+          .send(newCollection)
+          .expect(201)
+          .expect(res => {
+            expect(res.body).to.have.property('id');
+            expect(res.body.title).to.eql(newCollection.title);
+            expect(res.body.notes).to.eql(newCollection.notes);
+          });
+      });
+    });
+
+    describe(`GET /api/collections/:collection_id`, () => {
+      context('Given there are collections in the database', () => {
+        const testCollections = makeCollectionsArray();
+        beforeEach('insert collections', () => {
+          return db.into('collections').insert(testCollections);
+        });
+
+        it('responds with 200 and the specified collection', () => {
+          const collectionId = 2;
+          return supertest(app)
+            .get(`/api/collections/${collectionId}`)
+            .expect(200);
+        });
       });
     });
   });

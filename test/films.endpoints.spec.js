@@ -47,7 +47,6 @@ describe('Films Endpoints', function() {
     });
 
     it('responds with 200 and all films', () => {
-
       let databaseFilms = testFilms.map(film => {
         return {
           ...film,
@@ -209,6 +208,31 @@ describe('Films Endpoints', function() {
               message: `Missing '${field}' in request body`
             }
           });
+      });
+    });
+  });
+
+  describe(`GET /api/films/:film_id`, () => {
+    // context(`Given no films`, () => {
+    //   it(`responds with 404`, () => {
+    //     const filmId = 123456;
+    //     return supertest(app)
+    //       .get(`/api/films/${filmId}`)
+    //       .expect(404);
+    //   });
+    // });
+
+    context('Given there are films in the database', () => {
+      const testFilms = makeFilmsArray();
+      beforeEach('insert films', () => {
+        return db.into('films').insert(testFilms);
+      });
+
+      it('responds with 200 and the specified collection', () => {
+        const filmId = 2;
+        return supertest(app)
+          .get(`/api/films/${filmId}`)
+          .expect(200);
       });
     });
   });

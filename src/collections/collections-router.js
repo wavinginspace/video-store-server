@@ -19,7 +19,6 @@ collectionsRouter
     const { title, notes } = req.body;
     const newCollection = { title, notes };
 
-
     for (const [key, value] of Object.entries(newCollection))
       if (value == null)
         return res.status(400).json({
@@ -41,7 +40,6 @@ collectionsRouter
   .route('/:collection_id')
   .all(checkCollectionExists)
   .get((req, res) => {
-    
     res.json(CollectionsService.serializeCollection(res.collection));
   })
   .delete((req, res, next) => {
@@ -73,13 +71,12 @@ collectionsRouter
       req.params.collection_id,
       collectionToUpdate
     )
-      .then((numRowsAffected) => {
-        logger.info(`Collection with id ${collection_id} updated.`)
+      .then(numRowsAffected => {
+        logger.info(`Collection with id ${collection_id} updated.`);
         res.status(204).end();
       })
       .catch(next);
-  })
-
+  });
 
 async function checkCollectionExists(req, res, next) {
   try {
