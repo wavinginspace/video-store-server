@@ -81,5 +81,34 @@ describe.only('Collections Endpoints', function() {
           });
       });
     });
+
+    context('Given collections in the database', () => {
+      const testCollections = makeCollectionsArray();
+
+      beforeEach('insert collections', () => {
+        return db.into('collections').insert(testCollections);
+      });
+
+      it('responds with 204 and removes the collection', () => {
+        let databaseCollections = testCollections.map(collection => {
+          return {
+            ...collection,
+            collection_films: ''
+          };
+        });
+        const idToRemove = 2;
+        const expectedCollections = databaseCollections.filter(
+          collection => collection.id !== idToRemove
+        );
+        return supertest(app)
+          .delete(`/api/collections/${idToRemove}`)
+          .expect(204)
+          .then(res => {
+            return supertest(app)
+              .get('/api/collections')
+              .expect(expectedCollections);
+          });
+      });
+    });
   });
 });

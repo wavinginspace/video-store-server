@@ -375,3 +375,4 @@
 {"message":"Film with id of 1 was created","level":"info"}
 {"message":"Film with id 2 deleted.","level":"info"}
 {"message":"Film with id of 1 was created","level":"info"}
+{"message":"Collection with id 2 deleted.","level":"info"}
