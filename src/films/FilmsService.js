@@ -30,10 +30,12 @@ const FilmsService = {
         .catch(t.rollback);
       })
       .then(function() {
+        
         // transaction suceeded, data written
         return film;
       })
-      .catch(function() {
+      .catch(function(e) {
+        
         // transaction failed, data rolled back
       });
   },
@@ -71,12 +73,12 @@ const FilmsService = {
 
   serializeFilm(film) {
     let collections;
+    
 
     if (Array.isArray(film)) {
       collections = film.map(film => film.collection_title);
       film = film[0];
     }
-
     return {
       id: film.id,
       title: xss(film.title),

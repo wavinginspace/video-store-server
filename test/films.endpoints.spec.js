@@ -28,7 +28,7 @@ describe('Films Endpoints', function() {
     )
   );
 
-    // * TEST GET /FILMS
+  // * TEST GET /FILMS
 
   describe('GET /api/films', () => {
     context('Given no films', () => {
@@ -71,9 +71,7 @@ describe('Films Endpoints', function() {
     const { maliciousFilm, expectedFilm } = makeMaliciousFilm();
 
     beforeEach('insert malicious film', () => {
-      return db
-        .into('films')
-        .insert([maliciousFilm])
+      return db.into('films').insert([maliciousFilm]);
     });
 
     it('removes XSS attack content', () => {
@@ -82,12 +80,12 @@ describe('Films Endpoints', function() {
         .expect(200)
         .expect(res => {
           expect(res.body[0].tags).to.eql(expectedFilm.tags);
-          expect(res.body[0].notes).to.eql(expectedFilm.notes);
+          expect(res.body[0].films).to.eql(expectedFilm.films);
         });
     });
   });
 
-// * TEST DELETE FILM
+  // * TEST DELETE FILM
 
   context('Given films in the database', () => {
     // const testCollections = makeCollectionsArray();
@@ -116,6 +114,41 @@ describe('Films Endpoints', function() {
           return supertest(app)
             .get('/api/films')
             .expect(expectedFilms);
+        });
+    });
+  });
+
+  describe('POST /api/films', () => {
+    it('creates a film, responding with 201 and the new film', () => {
+      const newFilm = {
+        title: 'Forrest Gump',
+        selected_collections: [],
+        director: 'Robert Zemeckis',
+        writers: 'Winston Groom, Eric Roth',
+        stars: 'Tom Hanks, Robin Wright, Gary Sinise',
+        year_released: '1994',
+        genre: 'Drama, Comedy, Romance',
+        film_format: 'DVD',
+        film_version: 'Original',
+        film_condition: 'Good',
+        film_value: '$1',
+        film_rating: '7/10',
+        selling: 'true',
+        trailer: 'https://www.youtube.com/watch?v=bLvqoHBptjg',
+        tags: 'American Classic, Feel-good',
+        notes: 'Classic American cinema',
+        memorable_scenes: 'Ping pong championship.',
+        date_added: new Date('2020-03-18 00:00:00').toISOString()
+      };
+      return supertest(app)
+        .post('/api/films')
+        .send(newFilm)
+        .expect(201)
+        .then(res => {
+          // console.log(res.body);
+          return supertest(app)
+            .get(`/api/films/${res.body.id}`)
+            .expect(res.body);
         });
     });
   });

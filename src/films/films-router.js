@@ -66,6 +66,7 @@ filmsRouter
 
     FilmsService.insertFilm(req.app.get('db'), newFilm)
       .then(film => {
+        
         logger.info(`Film with id of ${film.id} was created`);
         res
           .status(201)
@@ -79,6 +80,7 @@ filmsRouter
   .route('/:film_id')
   .all(checkFilmExists)
   .get((req, res) => {
+    
     res.json(FilmsService.serializeFilm(res.film));
   })
   .delete((req, res, next) => {
@@ -118,6 +120,7 @@ async function checkFilmExists(req, res, next) {
       req.app.get('db'),
       req.params.film_id
     );
+
 
     if (!film)
       return res.status(404).json({
