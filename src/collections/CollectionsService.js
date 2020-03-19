@@ -64,8 +64,8 @@ const CollectionsService = {
 
     return {
       id: collection.id,
-      title: collection.rows ? xss(collectionTitle) : collection.title,
-      notes: collection.rows ? xss(collectionNotes) : collection.notes,
+      title: collection.rows ? xss(collectionTitle) : xss(collection.title),
+      notes: collection.rows ? xss(collectionNotes) : xss(collection.notes),
       collection_films: collectionFilms ? collectionFilms : ''
     };
   }

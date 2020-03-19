@@ -64,7 +64,7 @@ describe('Films Endpoints', function() {
   // * TEST XSS ATTACK
 
   context('Given an XSS attack film', () => {
-    const testFilms = makeFilmsArray();
+    // const testFilms = makeFilmsArray();
     const { maliciousFilm, expectedFilm } = makeMaliciousFilm();
 
     beforeEach('insert malicious film', () => {

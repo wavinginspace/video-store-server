@@ -1,6 +1,9 @@
 const knex = require('knex');
 const app = require('../src/app');
-const { makeCollectionsArray } = require('./collections.fixtures');
+const {
+  makeCollectionsArray,
+  makeMaliciousCollection
+} = require('./collections.fixtures');
 
 describe.only('Collections Endpoints', function() {
   let db;
@@ -54,6 +57,28 @@ describe.only('Collections Endpoints', function() {
         return supertest(app)
           .get('/api/collections')
           .expect(200, databaseCollections);
+      });
+    });
+
+    context('Given an XSS attack collection', () => {
+      // const testCollections = makeCollectionsArray();
+      const {
+        maliciousCollection,
+        expectedCollection
+      } = makeMaliciousCollection();
+
+      beforeEach('insert malicious note', () => {
+        return db.into('collections').insert([maliciousCollection]);
+      });
+
+      it('removes XSS attack content', () => {
+        return supertest(app)
+          .get('/api/collections')
+          .expect(200)
+          .expect(res => {
+            expect(res.body[0].title).to.eql(expectedCollection.title);
+            expect(res.body[0].notes).to.eql(expectedCollection.notes);
+          });
       });
     });
   });
