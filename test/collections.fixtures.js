@@ -3,7 +3,7 @@ function makeCollectionsArray() {
     {
       id: 1,
       title: '80s Horror',
-      notes: 'A collection of my favorite horror films.'
+      notes: 'A collection of my favorite horror films.',
     },
     {
       id: 2,
@@ -23,4 +23,4 @@ function makeCollectionsArray() {
   ];
 }
 
-module.exports = makeCollectionsArray
+module.exports = { makeCollectionsArray };

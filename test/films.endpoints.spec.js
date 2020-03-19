@@ -40,7 +40,6 @@ describe('Films Endpoints', function() {
   });
 
   context('Given films in the database', () => {
-    // const testCollections = makeCollectionsArray();
     const testFilms = makeFilmsArray();
 
     beforeEach('insert films', () => {
@@ -48,7 +47,6 @@ describe('Films Endpoints', function() {
     });
 
     it('responds with 200 and all films', () => {
-      // let today = new Date("2020-03-18").toUTCString()
 
       let databaseFilms = testFilms.map(film => {
         return {
@@ -163,12 +161,8 @@ describe('Films Endpoints', function() {
           expect(res.body.tags).to.eql(newFilm.tags);
           expect(res.body.notes).to.eql(newFilm.notes);
           expect(res.body.memorable_scenes).to.eql(newFilm.memorable_scenes);
-          const expected = new Intl.DateTimeFormat('en-US').format(
-            new Date('03-18-2020')
-          );
-          const actual = new Intl.DateTimeFormat('en-US').format(
-            new Date(res.body.date_added)
-          );
+          const expected = new Date('2020-03-18 00:00:00').toISOString();
+          const actual = new Date(res.body.date_added).toISOString();
           expect(actual).to.eql(expected);
         })
         .then(res => {
