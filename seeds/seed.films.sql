@@ -33,7 +33,7 @@ VALUES
 'Wes Craven', 
 'Sandra Peabody, Lucy Grantham', 
 '1972', 
-'80s Horror', 
+'Horror', 
 'VHS', 
 'Original', 
 'Decent', 
@@ -43,7 +43,7 @@ VALUES
 'https://www.youtube.com/watch?v=n_HUvEpwL1I', 
 'Camp, B-Horror', 
 'Classic Wes Craven horror', 
-'can''t remember any'
+'when that thing happens'
 ),
 ('Halloween', 
 '', 
@@ -59,12 +59,13 @@ VALUES
 '10/10', 
 'false', 
 'https://www.youtube.com/watch?v=T5ke9IPTIJQ&t=33s', 
-'Classic, Teen Horror', 'One of the best horror films ever made.', 
+'Classic, Teen Horror', 
+'One of the best horror films ever made.', 
 'When Jamie Lee Curtis turns around and Michael Myers side steps into the bushes.'
 ),
 (
 'Forrest Gump', 
-'Comedy', 
+'', 
 'Robert Zemeckis', 
 'Winston Groom, Eric Roth', 
 'Tom Hanks, Robin Wright, Gary Sinise', 

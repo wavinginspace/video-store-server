@@ -1,7 +1,7 @@
 const knex = require('knex');
 const app = require('../src/app');
-const { makeNotesArray, makeMaliciousNote } = require('./films.fixtures');
-const { makeFoldersArray } = require('./folders.fixtures');
+const { makeFilmsArray, makeMaliciousFilm } = require('./films.fixtures');
+// const { makeCollectionsArray } = require('./collections.fixtures');
 
 describe('Films Endpoints', function() {
   let db;
@@ -17,92 +17,160 @@ describe('Films Endpoints', function() {
   after('disconnect from db', () => db.destroy());
 
   before('clean the table', () =>
-    db.raw('TRUNCATE films, collections, film_collections RESTART IDENTITY CASCADE')
+    db.raw(
+      'TRUNCATE films, collections, film_collections RESTART IDENTITY CASCADE'
+    )
   );
 
   this.afterEach('cleanup', () =>
-    db.raw('TRUNCATE films, collections, film_collections RESTART IDENTITY CASCADE')
+    db.raw(
+      'TRUNCATE films, collections, film_collections RESTART IDENTITY CASCADE'
+    )
   );
-})
 
+  describe('GET /api/films', () => {
+    context('Given no films', () => {
+      it('responds with 200 and an empty list', () => {
+        return supertest(app)
+          .get('/api/films')
+          .expect(200, []);
+      });
+    });
+  });
 
-//   describe('GET /api/notes', () => {
-//     context('Given no notes', () => {
+  context('Given films in the database', () => {
+    // const testCollections = makeCollectionsArray();
+    const testFilms = makeFilmsArray();
+
+    beforeEach('insert films', () => {
+      return db.into('films').insert(testFilms);
+    });
+
+    it('responds with 200 and all films', () => {
+      // let today = new Date("2020-03-18").toUTCString()
+
+      let databaseFilms = testFilms.map(film => {
+        return {
+          ...film,
+          collections: '',
+          date_added: new Date('2020-03-18 00:00:00').toString()
+        };
+      });
+      return supertest(app)
+        .get('/api/films')
+        .expect(200, databaseFilms);
+    });
+  });
+
+  context('Given films in the database', () => {
+    // const testCollections = makeCollectionsArray();
+    const testFilms = makeFilmsArray();
+
+    beforeEach('insert films', () => {
+      return db.into('films').insert(testFilms);
+    });
+
+    it('responds with 204 and removes the film', () => {
+      let databaseFilms = testFilms.map(film => {
+        return {
+          ...film,
+          collections: '',
+          date_added: new Date('2020-03-18 00:00:00').toString()
+        };
+      });
+      const idToRemove = 2;
+      const expectedFilms = databaseFilms.filter(
+        film => film.id !== idToRemove
+      );
+      return supertest(app)
+        .delete(`/api/films/${idToRemove}`)
+        .expect(204)
+        .then(res => {
+          return supertest(app)
+            .get('/api/films')
+            .expect(expectedFilms);
+        });
+    });
+  });
+});
+
+//   describe('GET /api/films', () => {
+//     context('Given no films', () => {
 //       it('responds with 200 and an empty list', () => {
 //         return supertest(app)
-//           .get('/api/notes')
+//           .get('/api/films')
 //           .expect(200, []);
 //       });
 //     });
 
-//     context('Given notes in the database', () => {
-//       const testFolders = makeFoldersArray();
-//       const testNotes = makeNotesArray();
+//     context('Given films in the database', () => {
+//       const testcollections = makecollectionsArray();
+//       const testFilms = makefilmsArray();
 
-//       beforeEach('insert notes', () => {
+//       beforeEach('insert films', () => {
 //         return db
-//           .into('folders')
-//           .insert(testFolders)
+//           .into('collections')
+//           .insert(testcollections)
 //           .then(() => {
-//             return db.into('notes').insert(testNotes);
+//             return db.into('films').insert(testFilms);
 //           });
 //       });
 
-//       it('responds with 200 and all notes', () => {
+//       it('responds with 200 and all films', () => {
 //         return supertest(app)
-//           .get('/api/notes')
-//           .expect(200, testNotes);
+//           .get('/api/films')
+//           .expect(200, testFilms);
 //       });
 //     });
 
-//     context('Given an XSS attack note', () => {
-//       const testFolders = makeFoldersArray();
-//       const { maliciousNote, expectedNote } = makeMaliciousNote();
+//     context('Given an XSS attack film', () => {
+//       const testcollections = makecollectionsArray();
+//       const { maliciousfilm, expectedfilm } = makeMaliciousfilm();
 
-//       beforeEach('insert malicious note', () => {
+//       beforeEach('insert malicious film', () => {
 //         return db
-//           .into('folders')
-//           .insert(testFolders)
+//           .into('collections')
+//           .insert(testcollections)
 //           .then(() => {
-//             return db.into('notes').insert([maliciousNote]);
+//             return db.into('films').insert([maliciousfilm]);
 //           });
 //       });
 
 //       it('removes XSS attack content', () => {
 //         return supertest(app)
-//           .get('/api/notes')
+//           .get('/api/films')
 //           .expect(200)
 //           .expect(res => {
-//             expect(res.body[0].note_name).to.eql(expectedNote.note_name);
-//             expect(res.body[0].content).to.eql(expectedNote.content);
+//             expect(res.body[0].film_name).to.eql(expectedfilm.film_name);
+//             expect(res.body[0].content).to.eql(expectedfilm.content);
 //           });
 //       });
 //     });
 //   });
 
-//   describe('POST /api/notes', () => {
-//     const testFolders = makeFoldersArray();
-//     beforeEach('insert folders', () => {
-//       return db.into('folders').insert(testFolders);
+//   describe('POST /api/films', () => {
+//     const testcollections = makecollectionsArray();
+//     beforeEach('insert collections', () => {
+//       return db.into('collections').insert(testcollections);
 //     });
 
-//     it('creates a note, responding with 201 and the new note', () => {
-//       const newNote = {
-//         note_name: 'Test new note',
-//         content: 'Test new note content...',
+//     it('creates a film, responding with 201 and the new film', () => {
+//       const newfilm = {
+//         film_name: 'Test new film',
+//         content: 'Test new film content...',
 //         modified: new Date(),
 //         folder: 2
 //       };
 //       return supertest(app)
-//         .post('/api/notes')
-//         .send(newNote)
+//         .post('/api/films')
+//         .send(newfilm)
 //         .expect(201)
 //         .expect(res => {
-//           expect(res.body.note_name).to.eql(newNote.note_name);
-//           expect(res.body.content).to.eql(newNote.content);
-//           expect(res.body.folder).to.eql(newNote.folder);
+//           expect(res.body.film_name).to.eql(newfilm.film_name);
+//           expect(res.body.content).to.eql(newfilm.content);
+//           expect(res.body.folder).to.eql(newfilm.folder);
 //           expect(res.body).to.have.property('id');
-//           expect(res.headers.location).to.eql(`/api/notes/${res.body.id}`);
+//           expect(res.headers.location).to.eql(`/api/films/${res.body.id}`);
 //           const expected = new Intl.DateTimeFormat('en-US').format(new Date());
 //           const actual = new Intl.DateTimeFormat('en-US').format(
 //             new Date(res.body.modified)
@@ -111,27 +179,27 @@ describe('Films Endpoints', function() {
 //         })
 //         .then(res => {
 //           return supertest(app)
-//             .get(`/api/notes/${res.body.id}`)
+//             .get(`/api/films/${res.body.id}`)
 //             .expect(res.body);
 //         });
 //     });
 
-//     const requiredFields = ['note_name', 'content'];
+//     const requiredFields = ['film_name', 'content'];
 
 //     requiredFields.forEach(field => {
-//       const newNote = {
-//         note_name: 'Test new note',
-//         content: 'Test new note content',
+//       const newfilm = {
+//         film_name: 'Test new film',
+//         content: 'Test new film content',
 //         modified: new Date(),
 //         folder: 2
 //       };
 
 //       it(`responds with 400 and error when the '${field}' is missing`, () => {
-//         delete newNote[field];
+//         delete newfilm[field];
 
 //         return supertest(app)
-//           .post('/api/notes')
-//           .send(newNote)
+//           .post('/api/films')
+//           .send(newfilm)
 //           .expect(400, {
 //             error: {
 //               message: `Missing '${field}' in request body`
@@ -141,137 +209,137 @@ describe('Films Endpoints', function() {
 //     });
 
 //     it('removes XSS attack content from response', () => {
-//       const { maliciousNote, expectedNote } = makeMaliciousNote();
+//       const { maliciousfilm, expectedfilm } = makeMaliciousfilm();
 //       return supertest(app)
-//         .post(`/api/notes`)
-//         .send(maliciousNote)
+//         .post(`/api/films`)
+//         .send(maliciousfilm)
 //         .expect(201)
 //         .expect(res => {
-//           expect(res.body.note_name).to.eql(expectedNote.note_name);
-//           expect(res.body.content).to.eql(expectedNote.content);
+//           expect(res.body.film_name).to.eql(expectedfilm.film_name);
+//           expect(res.body.content).to.eql(expectedfilm.content);
 //         });
 //     });
 //   });
 
-//   describe('DELETE /api/notes/:note_id', () => {
-//     context('Given no notes', () => {
+//   describe('DELETE /api/films/:film_id', () => {
+//     context('Given no films', () => {
 //       it('responds with 404', () => {
-//         const noteId = 123456;
+//         const filmId = 123456;
 //         return supertest(app)
-//           .delete(`/api/notes/${noteId}`)
+//           .delete(`/api/films/${filmId}`)
 //           .expect(404, {
 //             error: {
-//               message: `Note doesn't exist`
+//               message: `film doesn't exist`
 //             }
 //           });
 //       });
 //     });
 
-//     context('Given notes in the database', () => {
-//       const testFolders = makeFoldersArray();
-//       const testNotes = makeNotesArray();
+//     context('Given films in the database', () => {
+//       const testcollections = makecollectionsArray();
+//       const testFilms = makefilmsArray();
 
-//       beforeEach('insert notes', () => {
+//       beforeEach('insert films', () => {
 //         return db
-//           .into('folders')
-//           .insert(testFolders)
+//           .into('collections')
+//           .insert(testcollections)
 //           .then(() => {
-//             return db.into('notes').insert(testNotes);
+//             return db.into('films').insert(testFilms);
 //           });
 //       });
 
-//       it('responds with 204 and removes the note', () => {
+//       it('responds with 204 and removes the film', () => {
 //         const idToRemove = 2;
-//         const expectedNotes = testNotes.filter(note => note.id !== idToRemove);
+//         const expectedfilms = testFilms.filter(film => film.id !== idToRemove);
 //         return supertest(app)
-//           .delete(`/api/notes/${idToRemove}`)
+//           .delete(`/api/films/${idToRemove}`)
 //           .expect(204)
 //           .then(res => {
 //             return supertest(app)
-//               .get('/api/notes')
-//               .expect(expectedNotes);
+//               .get('/api/films')
+//               .expect(expectedfilms);
 //           });
 //       });
 //     });
 //   });
 
-//   describe('PATCH /api/notes/:note_id', () => {
-//     context('Given no notes', () => {
+//   describe('PATCH /api/films/:film_id', () => {
+//     context('Given no films', () => {
 //       it('responds with 404', () => {
-//         const noteId = 123456;
+//         const filmId = 123456;
 //         return supertest(app)
-//           .delete(`/api/notes/${noteId}`)
-//           .expect(404, { error: { message: `Note doesn't exist` } });
+//           .delete(`/api/films/${filmId}`)
+//           .expect(404, { error: { message: `film doesn't exist` } });
 //       });
 //     });
 
-//     context('Given notes in the database', () => {
-//       const testFolders = makeFoldersArray();
-//       const testNotes = makeNotesArray();
+//     context('Given films in the database', () => {
+//       const testcollections = makecollectionsArray();
+//       const testFilms = makefilmsArray();
 
-//       beforeEach('insert notes', () => {
+//       beforeEach('insert films', () => {
 //         return db
-//           .into('folders')
-//           .insert(testFolders)
+//           .into('collections')
+//           .insert(testcollections)
 //           .then(() => {
-//             return db.into('notes').insert(testNotes);
+//             return db.into('films').insert(testFilms);
 //           });
 //       });
 
-//       it('responds with 204 and updates the note', () => {
+//       it('responds with 204 and updates the film', () => {
 //         const idToUpdate = 2;
-//         const updateNote = {
-//           note_name: 'updates note name',
-//           content: 'updated note content'
+//         const updatefilm = {
+//           film_name: 'updates film name',
+//           content: 'updated film content'
 //         };
-//         const expectedNote = {
-//           ...testNotes[idToUpdate - 1],
-//           ...updateNote
+//         const expectedfilm = {
+//           ...testFilms[idToUpdate - 1],
+//           ...updatefilm
 //         };
 //         return supertest(app)
-//           .patch(`/api/notes/${idToUpdate}`)
-//           .send(updateNote)
+//           .patch(`/api/films/${idToUpdate}`)
+//           .send(updatefilm)
 //           .expect(204)
 //           .then(res => {
 //             return supertest(app)
-//               .get(`/api/notes/${idToUpdate}`)
-//               .expect(expectedNote);
+//               .get(`/api/films/${idToUpdate}`)
+//               .expect(expectedfilm);
 //           });
 //       });
 
 //       it('responds with 400 when no required fields supplied', () => {
 //         const idToUpdate = 2;
 //         return supertest(app)
-//           .patch(`/api/notes/${idToUpdate}`)
+//           .patch(`/api/films/${idToUpdate}`)
 //           .send({ irrelevantField: 'foo' })
 //           .expect(400, {
 //             error: {
-//               message: `Request body must contain either 'note name', 'content' or 'folder'`
+//               message: `Request body must contain either 'film name', 'content' or 'folder'`
 //             }
 //           });
 //       });
 
 //       it('responds with 204 when updating only a subset of fields', () => {
 //         const idToUpdate = 2;
-//         const updateNote = {
+//         const updatefilm = {
 //           folder: 3
 //         };
-//         const expectedNote = {
-//           ...testNotes[idToUpdate - 1],
-//           ...updateNote
+//         const expectedfilm = {
+//           ...testFilms[idToUpdate - 1],
+//           ...updatefilm
 //         };
 
 //         return supertest(app)
-//           .patch(`/api/notes/${idToUpdate}`)
+//           .patch(`/api/films/${idToUpdate}`)
 //           .send({
-//             ...updateNote,
+//             ...updatefilm,
 //             fieldToIgnore: 'should not be in GET response'
 //           })
 //           .expect(204)
 //           .then(res => {
 //             return supertest(app)
-//               .get(`/api/notes/${idToUpdate}`)
-//               .expect(expectedNote);
+//               .get(`/api/films/${idToUpdate}`)
+//               .expect(expectedfilm);
 //           });
 //       });
 //     });
