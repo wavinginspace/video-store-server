@@ -1,5 +1,3 @@
-
-
 function makeFilmsArray() {
   return [
     {
@@ -21,7 +19,7 @@ function makeFilmsArray() {
       tags: 'Camp, B-Horror',
       notes: 'classic Wes Craven horror',
       memorable_scenes: 'when that thing happens',
-      date_added: new Date("2020-03-18").toUTCString()
+      date_added: new Date('2020-03-18').toUTCString()
     },
     {
       id: 2,
@@ -43,7 +41,7 @@ function makeFilmsArray() {
       notes: 'One of the best horror films ever made.',
       memorable_scenes:
         'When Jamie Lee Curtis turns around and Michael Myers side steps into the bushes.',
-        date_added: new Date("2020-03-18").toUTCString()
+      date_added: new Date('2020-03-18').toUTCString()
     },
     {
       id: 3,
@@ -64,7 +62,7 @@ function makeFilmsArray() {
       tags: 'American Classic, Feel-good',
       notes: 'Classic American cinema',
       memorable_scenes: 'Ping pong championship.',
-      date_added: new Date("2020-03-18").toUTCString()
+      date_added: new Date('2020-03-18').toUTCString()
     }
   ];
 }
@@ -88,7 +86,8 @@ function makeMaliciousFilm() {
     trailer: 'https://www.youtube.com/watch?v=bLvqoHBptjg',
     tags: 'Naughty naughty very naughty <script>alert("xss");</script>',
     notes:
-      'Bad image <img src="badimg.jpg" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.'
+      'Bad image <img src="badimg.jpg" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.',
+    date_added: new Date('2020-03-18').toUTCString()
   };
 
   const expectedFilm = {

@@ -28,6 +28,8 @@ describe('Films Endpoints', function() {
     )
   );
 
+    // * TEST GET /FILMS
+
   describe('GET /api/films', () => {
     context('Given no films', () => {
       it('responds with 200 and an empty list', () => {
@@ -61,6 +63,31 @@ describe('Films Endpoints', function() {
         .expect(200, databaseFilms);
     });
   });
+
+  // * TEST XSS ATTACK
+
+  context('Given an XSS attack film', () => {
+    const testFilms = makeFilmsArray();
+    const { maliciousFilm, expectedFilm } = makeMaliciousFilm();
+
+    beforeEach('insert malicious film', () => {
+      return db
+        .into('films')
+        .insert([maliciousFilm])
+    });
+
+    it('removes XSS attack content', () => {
+      return supertest(app)
+        .get('/api/films')
+        .expect(200)
+        .expect(res => {
+          expect(res.body[0].tags).to.eql(expectedFilm.tags);
+          expect(res.body[0].notes).to.eql(expectedFilm.notes);
+        });
+    });
+  });
+
+// * TEST DELETE FILM
 
   context('Given films in the database', () => {
     // const testCollections = makeCollectionsArray();
