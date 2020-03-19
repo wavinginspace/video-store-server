@@ -162,18 +162,57 @@ describe('Films Endpoints', function() {
           expect(res.body.tags).to.eql(newFilm.tags);
           expect(res.body.notes).to.eql(newFilm.notes);
           expect(res.body.memorable_scenes).to.eql(newFilm.memorable_scenes);
-          const expected = new Intl.DateTimeFormat('en-US').format(new Date("03-18-2020"));
+          const expected = new Intl.DateTimeFormat('en-US').format(
+            new Date('03-18-2020')
+          );
           const actual = new Intl.DateTimeFormat('en-US').format(
             new Date(res.body.date_added)
           );
           expect(actual).to.eql(expected);
         })
         .then(res => {
-          
           return supertest(app)
             .get(`/api/films/${res.body.id}`)
             .expect(res.body);
         });
+    });
+
+    const requiredFields = ['title'];
+
+    requiredFields.forEach(field => {
+      const newFilm = {
+        title: 'Forrest Gump',
+        selected_collections: [],
+        director: 'Robert Zemeckis',
+        writers: 'Winston Groom, Eric Roth',
+        stars: 'Tom Hanks, Robin Wright, Gary Sinise',
+        year_released: '1994',
+        genre: 'Drama, Comedy, Romance',
+        film_format: 'DVD',
+        film_version: 'Original',
+        film_condition: 'Good',
+        film_value: '$1',
+        film_rating: '7/10',
+        selling: 'true',
+        trailer: 'https://www.youtube.com/watch?v=bLvqoHBptjg',
+        tags: 'American Classic, Feel-good',
+        notes: 'Classic American cinema',
+        memorable_scenes: 'Ping pong championship.',
+        date_added: new Date('2020-03-18 00:00:00').toISOString()
+      };
+
+      it(`responds with 400 and error when the '${field}' is missing`, () => {
+        delete newFilm[field];
+
+        return supertest(app)
+          .post('/api/films')
+          .send(newFilm)
+          .expect(400, {
+            error: {
+              message: `Missing '${field}' in request body`
+            }
+          });
+      });
     });
   });
 });
