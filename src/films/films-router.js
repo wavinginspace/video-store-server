@@ -66,8 +66,7 @@ filmsRouter
 
     FilmsService.insertFilm(req.app.get('db'), newFilm)
       .then(film => {
-        
-        logger.info(`Film with id of ${film.id} was created`);
+        // logger.info(`Film with id of ${film.id} was created`);
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${film.id}`))

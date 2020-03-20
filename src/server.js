@@ -5,6 +5,8 @@ const moment = require ('moment');
 const { types } = require('pg');
 const { builtins } = require('pg-types');
 
+// formats date coming back from DB
+
 const parseFn = (val) => {
   return val === null ? null : moment(val).format('MM-DD-YYYY');
 };

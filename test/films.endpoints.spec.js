@@ -63,7 +63,6 @@ describe('Films Endpoints', function() {
   // * TEST XSS ATTACK
 
   context('Given an XSS attack film', () => {
-    // const testFilms = makeFilmsArray();
     const { maliciousFilm, expectedFilm } = makeMaliciousFilm();
 
     beforeEach('insert malicious film', () => {
@@ -84,7 +83,6 @@ describe('Films Endpoints', function() {
   // * TEST DELETE FILM
 
   context('Given films in the database', () => {
-    // const testCollections = makeCollectionsArray();
     const testFilms = makeFilmsArray();
 
     beforeEach('insert films', () => {
@@ -213,15 +211,6 @@ describe('Films Endpoints', function() {
   });
 
   describe(`GET /api/films/:film_id`, () => {
-    // context(`Given no films`, () => {
-    //   it(`responds with 404`, () => {
-    //     const filmId = 123456;
-    //     return supertest(app)
-    //       .get(`/api/films/${filmId}`)
-    //       .expect(404);
-    //   });
-    // });
-
     context('Given there are films in the database', () => {
       const testFilms = makeFilmsArray();
       beforeEach('insert films', () => {
