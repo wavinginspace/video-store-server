@@ -1,26 +1,65 @@
-# Express Boilerplate!
+# Video Store
 
-This is a boilerplate project used for starting new projects!
+Video Store is an app for managing your personal film collection. Users can add film titles and collections, with any number of films belonging to any number of collections. Built with film collectors, fans, archivists and sellers/traders in mind.
 
-## Set up
+![Home Page](./src/images/screenshots/home.png)
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+Try it out! - https://video-store.now.sh/
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+Users can add any number of films along with optional additional information for each title.
 
-## Scripts
+**Title** - Title of the film.   
+**Collections** - Which collection(s) the film belongs in. Multiple collections can be selected.    
+**Director** - Director(s) of the film.  
+**Writers** - Writer(s) of the film script/screenplay.  
+**Stars** - Notable/featured actors in the film.  
+**Year Released** - Year that film was released.  
+**Genre** - Film genre(s).  
+**Format** - Format of title (ie. DVD, VHS, digital, etc).      
+**Version** - Version of title (ie. Original, Director's Cut, Italian dubbed, bootleg, etc).      
+**Condition** - Physical condition of title (useful for selling films).  
+**Value** - Value of title (useful for selling films).  
+**Rating** - Rating of film on scale of user's choice (ie. 10/10, Five Stars, 2 Thumbs Up, 97).  
+**Selling** - Check if marking title for sale.  
+**Trailer** - URL input for link to title trailer.  
+**Tags** - Custom tags for title (ie. Scary, Funny, Sad).  
+**Notes** - Additional notes on film/title.  
+**Memorable Scenes** - Memorable scenes from the film.
 
-Start the application `npm start`
+Users can also create any number of collections with optional notes information for each collection.
 
-Start nodemon for the application `npm run dev`
+## Endpoints
 
-Run the tests `npm test`
+### /films
 
-## Deploying
+Shows a list of all films in the user's 'store'.
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+### /films/1
+
+Shows information entered for the film matching the id of the url param.
+
+### /collections
+
+Shows a list of all collections in the user's 'store'.
+
+### /collections/1
+
+Shows films belonging to the collection with an id matching the url param.
+
+## Technology Used
+
+### Front-end
+React with React Router + Context, JS ES6, SCSS
+
+### Back-end
+Node.js w/ Express, PostgreSQL, Knex, Postgrator
+
+### Testing
+Mocha, Chai, Jest, Supertest
+
+### Deployment
+Zeit, Heroku
+
+-----------------
+
+*Paul Baisley 2020*
