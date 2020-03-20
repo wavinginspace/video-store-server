@@ -35,19 +35,19 @@ Users can also create any number of collections with optional notes information 
 
 ### /films
 
-Shows a list of all films in the user's 'store'.
+List of all films in the user's 'store'.
 
 ### /films/1
 
-Shows information entered for the film matching the id of the url param.
+Endpoint for film matching the id of the url param.
 
 ### /collections
 
-Shows a list of all collections in the user's 'store'.
+List of all collections in the user's 'store'.
 
 ### /collections/1
 
-Shows films belonging to the collection with an id matching the url param.
+Endpoint for collection with an id matching the url param.
 
 ## Technology Used
 
