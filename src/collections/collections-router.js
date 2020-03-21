@@ -80,13 +80,12 @@ collectionsRouter
   });
 
 async function checkCollectionExists(req, res, next) {
+// console.log(res)
   try {
     const collection = await CollectionsService.getById(
       req.app.get('db'),
       req.params.collection_id
     );
-
-    
 
     if (!collection)
       return res.status(404).json({
