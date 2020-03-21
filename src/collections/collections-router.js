@@ -40,6 +40,7 @@ collectionsRouter
   .route('/:collection_id')
   .all(checkCollectionExists)
   .get((req, res) => {
+    
     res.json(CollectionsService.serializeCollection(res.collection));
   })
   .delete((req, res, next) => {
@@ -85,12 +86,14 @@ async function checkCollectionExists(req, res, next) {
       req.params.collection_id
     );
 
+    
+
     if (!collection)
       return res.status(404).json({
         error: `Collection doesn't exist`
       });
 
-    res.collection = collection;
+    res.collection = collection.rows;
     next();
   } catch (error) {
     next(error);

@@ -74,7 +74,6 @@ const FilmsService = {
   serializeFilm(film) {
     let collections;
     
-    
     if (Array.isArray(film)) {
       collections = film.map(film => film.collection_title);
       film = film[0];
