@@ -46,14 +46,9 @@ const CollectionsService = {
   },
 
   serializeCollection(collection) {
-    let id = null;
-    if (collection) {
-      id = collection.id;
-    }
-    let { films } = collection;
-    let title = collection.title;
-    let notes = collection.notes;
-    
+    let id = collection ? collection.id : null;
+    let { films, title, notes } = collection;
+
     if (Array.isArray(collection) && collection.length) {
       id = collection[0].id;
       title = collection[0].collection_title;
@@ -64,7 +59,7 @@ const CollectionsService = {
     }
 
     return {
-      id: id || null,
+      id,
       title: xss(title),
       notes: xss(notes),
       collection_films: films

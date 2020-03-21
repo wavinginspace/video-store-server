@@ -89,7 +89,7 @@ VALUES
 ('80s Horror', 'A collection of my favorite horror films.'),
 ('Comedy', 'A collection of films that I think are funny.'),
 ('Action', 'A collection of Action films.'),
-('Sci-Fi', 'A collections of Sci-Fi films.');
+('Sci-Fi', 'A collection of Sci-Fi films.');
 
 INSERT INTO film_collections (film_id, collection_id)
 VALUES
