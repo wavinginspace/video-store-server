@@ -47,6 +47,14 @@ const CollectionsService = {
   serializeCollection(collection) {
     let collectionFilms, collectionTitle, collectionNotes;
 
+
+
+    // if (Array.isArray(film)) {
+    //   collections = film.map(film => film.collection_title);
+    //   film = film[0];
+    // }
+
+
     if (collection.rows) {
       collectionFilms = collection.rows.map(film => {
         return { id: film.film_id, title: film.film_title };
