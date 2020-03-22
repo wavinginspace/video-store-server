@@ -39,15 +39,15 @@ List of all films in the user's 'store'.
 
 ### /films/1
 
-Endpoint for film matching the id of the url param.
+Endpoint for film matching the id of the url param. GET request returns film object with all properties for film.
 
 ### /collections
 
-List of all collections in the user's 'store'.
+List of all collections in the user's 'store'.  
 
 ### /collections/1
 
-Endpoint for collection with an id matching the url param.
+Endpoint for collection with an id matching the url param. GET request returns title, notes and films in collection.
 
 ## Technology Used
 
