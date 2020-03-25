@@ -15,7 +15,7 @@ const FilmsService = {
         return knex('films')
           .transacting(t)
           .insert(newFilm)
-          .returning('*') 
+          .returning('*')
           .then(function(response) {
             film = response[0]; // response = data from database
             let collections = selected_collections.map(collection => {
@@ -26,16 +26,14 @@ const FilmsService = {
               .transacting(t)
               .insert(collections);
           })
-        .then(t.commit)
-        .catch(t.rollback);
+          .then(t.commit)
+          .catch(t.rollback);
       })
       .then(function() {
-        
         // transaction suceeded, data written
         return film;
       })
       .catch(function(e) {
-        
         // transaction failed, data rolled back
       });
   },
@@ -56,7 +54,8 @@ const FilmsService = {
         'film_collections.collection_id',
         '=',
         'collections.id'
-      );
+      )
+      .leftOuterJoin('users', 'films.user_id', '=', 'users.user_id');
   },
   // * DELETE
   deleteFilm(knex, id) {
@@ -73,7 +72,7 @@ const FilmsService = {
 
   serializeFilm(film) {
     let collections;
-    
+
     if (Array.isArray(film)) {
       collections = film.map(film => film.collection_title);
       film = film[0];
