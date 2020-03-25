@@ -97,4 +97,8 @@ VALUES
 (2, 1),
 (3, 2);
 
+INSERT INTO users (user_name, password) 
+VALUES
+('Socko973', 'Gengar00');
+
 COMMIT;

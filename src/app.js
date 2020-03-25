@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const filmsRouter = require('./films/films-router');
 const collectionsRouter = require('./collections/collections-router');
+const authRouter = require('./auth/auth-router');
+const usersRouter = require('./users/users-router');
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(helmet());
 
 app.use('/api/films/', filmsRouter);
 app.use('/api/collections/', collectionsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
