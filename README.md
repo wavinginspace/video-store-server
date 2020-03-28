@@ -63,8 +63,8 @@ Mocha, Chai, Jest, Supertest
 ### Deployment
 Zeit, Heroku
 
-*Client repo - https://github.com/wavinginspace/video-store-server*
-
 -----------------
+
+*Client repo - https://github.com/wavinginspace/video-store-server*
 
 *Paul Baisley 2020*
