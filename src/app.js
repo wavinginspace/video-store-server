@@ -19,10 +19,11 @@ app.use(
 app.use(cors());
 app.use(helmet());
 
+
 app.use('/api/films/', filmsRouter);
-app.use('/api/collections/', collectionsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/collections/', collectionsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
